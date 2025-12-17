@@ -146,31 +146,21 @@
     </div>
 </section>
 
-<!-- Skills Section -->
-<section id="skills" class="py-20 relative z-10">
-    <div class="max-w-7xl mx-auto px-6">
-        <h2 class="text-4xl md:text-5xl font-bold mb-16 text-center"><span class="text-gradient">Skills</span> &
-            Expertise</h2>
+<section id="skills" class="py-32 relative z-10">
+    <div class="max-w-6xl mx-auto px-6">
+        <div class="text-center mb-16">
+            <h2 class="text-4xl md:text-5xl font-bold mb-6 text-white tracking-tight">Technical <span
+                    class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-purple-400">Proficiency</span>
+            </h2>
+            <p class="text-gray-400 max-w-2xl mx-auto text-lg">A curated ecosystem of technologies I use to build
+                scalable solutions.</p>
+        </div>
 
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-            {% for skill in skills %}
-            <div class="glass-card p-6 text-center hover:-translate-y-2 transition-transform duration-300 group">
-                {% if skill.image %}
-                <img src="{{ skill.image.url }}" alt="{{ skill.name }}"
-                    class="w-16 h-16 mx-auto mb-4 object-contain group-hover:scale-110 transition-transform">
-                {% else %}
-                <div class="w-16 h-16 mx-auto mb-4 bg-white/10 rounded-full flex items-center justify-center text-2xl">
-                    {{ skill.name|slice:":1" }}
-                </div>
-                {% endif %}
-                <h3 class="text-xl font-semibold">{{ skill.name }}</h3>
-                <div class="w-full bg-gray-700 h-1 mt-4 rounded-full overflow-hidden">
-                    <div class="bg-primary h-full" style="width: {{ skill.proficiency }}%"></div>
-                </div>
+        <!-- Glass Control Panel -->
+        <div class="rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl overflow-hidden p-[1px]">
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-[1px] bg-transparent">
+                {{ skills_html|safe }}
             </div>
-            {% empty %}
-            <p class="text-center col-span-full text-gray-500">No skills added yet.</p>
-            {% endfor %}
         </div>
     </div>
 </section>
@@ -181,33 +171,59 @@
         <h2 class="text-4xl md:text-5xl font-bold mb-16 text-center">Selected <span
                 class="text-gradient">Projects</span></h2>
 
-        <div class="grid md:grid-cols-2 gap-12">
+        <div class="flex flex-col gap-32 pb-40">
             {% for project in projects %}
-            <div class="glass-card overflow-hidden group">
-                <div class="relative h-64 overflow-hidden">
-                    {% if project.image %}
-                    <img src="{{ project.image.url }}" alt="{{ project.title }}"
-                        class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
-                    {% else %}
-                    <div class="w-full h-full bg-gray-800 flex items-center justify-center">
-                        <span class="text-4xl">🚀</span>
+            <!-- Project Card {{ forloop.counter }} -->
+            <div
+                class="project-card sticky top-24 md:top-32 w-full min-h-[60vh] md:min-h-[70vh] rounded-[2.5rem] overflow-hidden border border-white/10 shadow-2xl transition-all duration-500 bg-gradient-to-br 
+                {% cycle 'from-indigo-900/90' 'from-purple-900/90' 'from-cyan-900/90' 'from-pink-900/90' %} via-[#0a0a0a] to-black">
+
+                <div class="flex flex-col md:flex-row h-full">
+                    <!-- Text Content -->
+                    <div class="p-8 md:p-12 flex flex-col justify-center md:w-1/2 order-2 md:order-1 z-10">
+                        <div class="flex items-center gap-4 mb-4">
+                            <span class="text-sm font-mono tracking-widest text-white/50">0{{ forloop.counter }}</span>
+                            <div class="h-[1px] w-12 bg-white/20"></div>
+                        </div>
+                        <h3 class="text-3xl md:text-5xl font-bold mb-6 text-white leading-tight">{{ project.title }}
+                        </h3>
+                        <p class="text-gray-400 mb-8 text-lg leading-relaxed">{{ project.description }}</p>
+
+                        <div class="flex flex-wrap gap-3 mb-8">
+                            {{ project.tag_html|safe }}
+                        </div>
+
+                        <div class="flex gap-4">
+                            {% if project.github_link %}
+                            <a href="{{ project.github_link }}" target="_blank"
+                                class="px-6 py-3 rounded-full bg-white text-black font-bold hover:scale-105 transition-transform flex items-center gap-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path
+                                        d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22">
+                                    </path>
+                                </svg>
+                                Code
+                            </a>
+                            {% endif %}
+                        </div>
                     </div>
-                    {% endif %}
-                    <div
-                        class="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center space-x-4">
-                        {% if project.github_link %}
-                        <a href="{{ project.github_link }}" target="_blank"
-                            class="p-2 bg-white text-black rounded-full hover:scale-110 transition-transform">Code</a>
+
+                    <!-- Image Content -->
+                    <div class="md:w-1/2 order-1 md:order-2 relative overflow-hidden group">
+                        {% if project.image %}
+                        <img src="{{ project.image.url }}" alt="{{ project.title }}"
+                            class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-60 md:opacity-100 mask-image-b md:mask-image-l">
+                        {% else %}
+                        <div class="w-full h-full flex items-center justify-center bg-white/5">
+                            <span class="text-6xl">🚀</span>
+                        </div>
                         {% endif %}
-                    </div>
-                </div>
-                <div class="p-8">
-                    <h3 class="text-2xl font-bold mb-2">{{ project.title }}</h3>
-                    <p class="text-gray-400 mb-4 line-clamp-2">{{ project.description }}</p>
-                    <div class="flex flex-wrap gap-2">
-                        {% for tag in project.tech_stack.split %}
-                        <span class="text-xs px-3 py-1 bg-white/10 rounded-full">{{ tag }}</span>
-                        {% endfor %}
+                        <!-- Gradient Overlay for Mobile Readability -->
+                        <div
+                            class="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-transparent md:hidden">
+                        </div>
                     </div>
                 </div>
             </div>

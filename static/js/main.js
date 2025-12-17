@@ -133,7 +133,7 @@ const initGSAP = () => {
 
     // Scroll Reveal Animation (Native Intersection Observer)
     // Exclude .fade-in because GSAP handles the initial hero animation
-    const revealElements = document.querySelectorAll('section:not(#home) h2, section:not(#home) .glass-card, .columns-1 > div');
+    const revealElements = document.querySelectorAll('section:not(#home) h2, section:not(#home) .glass-card, .skill-card, .columns-1 > div');
 
     // Add initial styles for reveal
     const styleSheet = document.createElement("style");
@@ -167,6 +167,26 @@ const initGSAP = () => {
     });
 
     revealElements.forEach(el => observer.observe(el));
+
+    // Sticky Stacking Cards Animation
+    const customCards = gsap.utils.toArray('.project-card');
+    customCards.forEach((card, i) => {
+        if (i === customCards.length - 1) return; // Skip last card
+
+        const nextCard = customCards[i + 1];
+
+        gsap.to(card, {
+            scale: 0.9,
+            opacity: 0.4,
+            filter: 'blur(5px)',
+            scrollTrigger: {
+                trigger: nextCard,
+                start: "top bottom",
+                end: "top 20%",
+                scrub: 1
+            }
+        });
+    });
 };
 
 document.addEventListener('DOMContentLoaded', () => {
