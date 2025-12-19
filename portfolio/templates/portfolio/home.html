@@ -118,8 +118,8 @@
 </section>
 
 <section id="skills" class="py-32 relative z-10">
-    <div class="max-w-6xl mx-auto px-6">
-        <div class="text-center mb-16">
+    <div class="max-w-full mx-auto overflow-hidden">
+        <div class="text-center mb-16 px-6">
             <h2 class="text-4xl md:text-5xl font-bold mb-6 text-white tracking-tight">Technical <span
                     class="text-white">Proficiency</span>
             </h2>
@@ -127,14 +127,108 @@
                 scalable solutions.</p>
         </div>
 
-        <!-- Glass Control Panel -->
-        <div class="rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl overflow-hidden p-[1px]">
-            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-[1px] bg-transparent">
-                {{ skills_html|safe }}
+        <!-- Marquee Container -->
+        <div class="relative w-full fade-in-up">
+            <!-- Gradient Masks for smooth fade edges -->
+            <div class="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-[#050505] to-transparent z-10"></div>
+            <div class="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-[#050505] to-transparent z-10"></div>
+
+            <!-- Row 1: Scroll Left -->
+            <div class="flex gap-8 mb-8 w-max animate-scroll hover:pause">
+                {% for skill in skills %}
+                <div
+                    class="flex items-center gap-3 px-8 py-4 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/30 transition-colors whitespace-nowrap group">
+                    {% if skill.image %}
+                    <img src="{{ skill.image.url }}" alt="{{ skill.name }}"
+                        class="w-6 h-6 object-contain opacity-70 group-hover:opacity-100 transition-opacity grayscale group-hover:grayscale-0">
+                    {% elif skill.icon_class %}
+                    <i class="{{ skill.icon_class }} text-xl opacity-70 group-hover:opacity-100 transition-opacity"></i>
+                    {% endif %}
+                    <span
+                        class="text-gray-300 font-medium text-lg tracking-wide group-hover:text-white transition-colors">{{ skill.name }}</span>
+                </div>
+                {% endfor %}
+                {% for skill in skills %}
+                <div
+                    class="flex items-center gap-3 px-8 py-4 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/30 transition-colors whitespace-nowrap group">
+                    {% if skill.image %}
+                    <img src="{{ skill.image.url }}" alt="{{ skill.name }}"
+                        class="w-6 h-6 object-contain opacity-70 group-hover:opacity-100 transition-opacity grayscale group-hover:grayscale-0">
+                    {% elif skill.icon_class %}
+                    <i class="{{ skill.icon_class }} text-xl opacity-70 group-hover:opacity-100 transition-opacity"></i>
+                    {% endif %}
+                    <span
+                        class="text-gray-300 font-medium text-lg tracking-wide group-hover:text-white transition-colors">{{ skill.name }}</span>
+                </div>
+                {% endfor %}
+            </div>
+
+            <!-- Row 2: Scroll Right (Reverse) -->
+            <div class="flex gap-8 w-max animate-scroll-reverse hover:pause">
+                {% for skill in skills reversed %}
+                <div
+                    class="flex items-center gap-3 px-8 py-4 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/30 transition-colors whitespace-nowrap group">
+                    {% if skill.image %}
+                    <img src="{{ skill.image.url }}" alt="{{ skill.name }}"
+                        class="w-6 h-6 object-contain opacity-70 group-hover:opacity-100 transition-opacity grayscale group-hover:grayscale-0">
+                    {% elif skill.icon_class %}
+                    <i class="{{ skill.icon_class }} text-xl opacity-70 group-hover:opacity-100 transition-opacity"></i>
+                    {% endif %}
+                    <span
+                        class="text-gray-300 font-medium text-lg tracking-wide group-hover:text-white transition-colors">{{ skill.name }}</span>
+                </div>
+                {% endfor %}
+                {% for skill in skills reversed %}
+                <div
+                    class="flex items-center gap-3 px-8 py-4 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/30 transition-colors whitespace-nowrap group">
+                    {% if skill.image %}
+                    <img src="{{ skill.image.url }}" alt="{{ skill.name }}"
+                        class="w-6 h-6 object-contain opacity-70 group-hover:opacity-100 transition-opacity grayscale group-hover:grayscale-0">
+                    {% elif skill.icon_class %}
+                    <i class="{{ skill.icon_class }} text-xl opacity-70 group-hover:opacity-100 transition-opacity"></i>
+                    {% endif %}
+                    <span
+                        class="text-gray-300 font-medium text-lg tracking-wide group-hover:text-white transition-colors">{{ skill.name }}</span>
+                </div>
+                {% endfor %}
             </div>
         </div>
     </div>
 </section>
+
+<style>
+    @keyframes scroll {
+        0% {
+            transform: translateX(0);
+        }
+
+        100% {
+            transform: translateX(-50%);
+        }
+    }
+
+    @keyframes scroll-reverse {
+        0% {
+            transform: translateX(-50%);
+        }
+
+        100% {
+            transform: translateX(0);
+        }
+    }
+
+    .animate-scroll {
+        animation: scroll 40s linear infinite;
+    }
+
+    .animate-scroll-reverse {
+        animation: scroll-reverse 40s linear infinite;
+    }
+
+    .hover\:pause:hover {
+        animation-play-state: paused;
+    }
+</style>
 
 
 <!-- Contact Section -->

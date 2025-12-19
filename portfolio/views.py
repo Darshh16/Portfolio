@@ -4,7 +4,7 @@ from django.contrib import messages
 from .models import Skill, Project, Achievement
 
 def home(request):
-    skills = Skill.objects.all()
+    skills = list(Skill.objects.all())
     # Projects logic moved to projects view
 
     # Pre-render Skills HTML to avoid Template Engine ghosts
