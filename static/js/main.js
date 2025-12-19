@@ -1,17 +1,31 @@
-// Three.js Background Animation (Original Particles)
+// Three.js Background Animation (Optimized for Performance)
 const initThreeJS = () => {
+    // Disable Three.js on mobile devices for better performance
+    const isMobile = window.innerWidth < 768;
+    if (isMobile) {
+        console.log('Three.js disabled on mobile for performance');
+        return;
+    }
+
     const container = document.getElementById('canvas-container');
+    if (!container) return;
+
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-    const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+    const renderer = new THREE.WebGLRenderer({
+        alpha: true,
+        antialias: false, // Disabled for performance
+        powerPreference: "high-performance"
+    });
 
     renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2)); // Limit pixel ratio for performance
     container.innerHTML = ''; // Clear previous canvas
     container.appendChild(renderer.domElement);
 
-    // Particles
+    // Particles - Reduced count for better performance
     const particlesGeometry = new THREE.BufferGeometry();
-    const particlesCount = 2000;
+    const particlesCount = window.innerWidth < 1024 ? 800 : 1500; // Fewer particles on smaller screens
     const posArray = new Float32Array(particlesCount * 3);
 
     for (let i = 0; i < particlesCount * 3; i++) {
@@ -59,11 +73,16 @@ const initThreeJS = () => {
 
     animate();
 
-    // Resize handler
+    // Resize handler with debouncing
+    let resizeTimeout;
     window.addEventListener('resize', () => {
-        camera.aspect = window.innerWidth / window.innerHeight;
-        camera.updateProjectionMatrix();
-        renderer.setSize(window.innerWidth, window.innerHeight);
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(() => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        }, 250);
     });
 };
 

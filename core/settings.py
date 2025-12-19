@@ -149,5 +149,5 @@ STATICFILES_DIRS = [
 ]
 
 CSRF_TRUSTED_ORIGINS = [ 
-    "https://portfolio-2hxy.onrender.com/"
+    "https://portfolio-2hxy.onrender.com"
 ]
