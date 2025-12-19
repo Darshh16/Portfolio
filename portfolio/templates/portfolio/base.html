@@ -199,9 +199,12 @@
     <div class="custom-cursor" id="custom-cursor"></div>
     <div id="canvas-container"></div>
 
-    <nav class="fixed w-full z-50 top-0 left-0 p-6 transition-all duration-300" id="navbar">
+    <nav class="fixed w-full z-50 top-0 left-0 p-4 md:p-6 transition-all duration-300" id="navbar">
         <div class="max-w-7xl mx-auto flex justify-between items-center">
-            <a href="{% url 'home' %}" class="text-2xl font-bold tracking-tighter text-gradient">Darsh Jilka</a>
+            <a href="{% url 'home' %}" class="text-xl md:text-2xl font-bold tracking-tighter text-gradient">Darsh
+                Jilka</a>
+
+            <!-- Desktop Navigation -->
             <div class="hidden md:flex space-x-8 text-sm font-semibold tracking-wide">
                 <a href="{% url 'home' %}" class="hover:text-primary transition-colors">HOME</a>
                 <a href="{% url 'about' %}" class="hover:text-primary transition-colors">ABOUT</a>
@@ -209,6 +212,48 @@
                 <a href="{% url 'projects' %}" class="hover:text-primary transition-colors">PROJECTS</a>
                 <a href="{% url 'gallery' %}" class="hover:text-primary transition-colors">GALLERY</a>
                 <a href="{% url 'home' %}#contact" class="hover:text-primary transition-colors">CONTACT</a>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-btn"
+                class="md:hidden text-white p-2 hover:bg-white/10 rounded-lg transition-colors">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16">
+                    </path>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Mobile Navigation Menu -->
+        <div id="mobile-menu" class="hidden md:hidden fixed inset-0 bg-black/95 backdrop-blur-lg z-50">
+            <div class="flex flex-col h-full">
+                <!-- Mobile Menu Header -->
+                <div class="flex justify-between items-center p-4 border-b border-white/10">
+                    <a href="{% url 'home' %}" class="text-xl font-bold tracking-tighter text-gradient">Darsh Jilka</a>
+                    <button id="mobile-menu-close"
+                        class="text-white p-2 hover:bg-white/10 rounded-lg transition-colors">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Mobile Menu Links -->
+                <div class="flex flex-col space-y-1 p-6 text-lg font-semibold">
+                    <a href="{% url 'home' %}"
+                        class="py-4 px-4 hover:bg-white/10 rounded-lg transition-colors border-b border-white/5">HOME</a>
+                    <a href="{% url 'about' %}"
+                        class="py-4 px-4 hover:bg-white/10 rounded-lg transition-colors border-b border-white/5">ABOUT</a>
+                    <a href="{% url 'home' %}#skills"
+                        class="py-4 px-4 hover:bg-white/10 rounded-lg transition-colors border-b border-white/5">SKILLS</a>
+                    <a href="{% url 'projects' %}"
+                        class="py-4 px-4 hover:bg-white/10 rounded-lg transition-colors border-b border-white/5">PROJECTS</a>
+                    <a href="{% url 'gallery' %}"
+                        class="py-4 px-4 hover:bg-white/10 rounded-lg transition-colors border-b border-white/5">GALLERY</a>
+                    <a href="{% url 'home' %}#contact"
+                        class="py-4 px-4 hover:bg-white/10 rounded-lg transition-colors">CONTACT</a>
+                </div>
             </div>
         </div>
     </nav>

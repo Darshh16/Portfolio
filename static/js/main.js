@@ -210,6 +210,42 @@ const initUI = () => {
 
     // Lenis Smooth Scroll - DISABLED cause of issues
     // if (typeof Lenis !== 'undefined') { ... } 
+
+    // Mobile Menu Toggle
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const mobileMenuClose = document.getElementById('mobile-menu-close');
+    const mobileMenuLinks = document.querySelectorAll('#mobile-menu a');
+
+    if (mobileMenuBtn && mobileMenu && mobileMenuClose) {
+        // Open mobile menu
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.remove('hidden');
+            document.body.style.overflow = 'hidden'; // Prevent scrolling when menu is open
+        });
+
+        // Close mobile menu
+        mobileMenuClose.addEventListener('click', () => {
+            mobileMenu.classList.add('hidden');
+            document.body.style.overflow = ''; // Restore scrolling
+        });
+
+        // Close menu when clicking on a link
+        mobileMenuLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+                document.body.style.overflow = '';
+            });
+        });
+
+        // Close menu when clicking outside
+        mobileMenu.addEventListener('click', (e) => {
+            if (e.target === mobileMenu) {
+                mobileMenu.classList.add('hidden');
+                document.body.style.overflow = '';
+            }
+        });
+    }
 };
 
 document.addEventListener('DOMContentLoaded', () => {
