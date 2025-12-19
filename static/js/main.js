@@ -22,9 +22,9 @@ const initThreeJS = () => {
 
     const material = new THREE.PointsMaterial({
         size: 0.02,
-        color: 0x6366f1, // Primary color
+        color: 0xffffff, // Monochrome White
         transparent: true,
-        opacity: 0.8,
+        opacity: 0.4,
     });
 
     const particlesMesh = new THREE.Points(particlesGeometry, material);
@@ -189,7 +189,31 @@ const initGSAP = () => {
     });
 };
 
+const initUI = () => {
+    // Custom Cursor
+    const cursor = document.getElementById('custom-cursor');
+    if (cursor) {
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+            // Ensure cursor is visible when moving
+            cursor.style.opacity = '1';
+        });
+
+        // Add hover effect to interactive elements
+        const hoverElements = document.querySelectorAll('a, button, input, textarea, .project-card, .group');
+        hoverElements.forEach(el => {
+            el.addEventListener('mouseenter', () => cursor.classList.add('grow'));
+            el.addEventListener('mouseleave', () => cursor.classList.remove('grow'));
+        });
+    }
+
+    // Lenis Smooth Scroll - DISABLED cause of issues
+    // if (typeof Lenis !== 'undefined') { ... } 
+};
+
 document.addEventListener('DOMContentLoaded', () => {
     initThreeJS();
     initGSAP();
+    initUI();
 });

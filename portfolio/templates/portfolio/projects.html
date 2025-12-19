@@ -1,0 +1,105 @@
+{% extends 'portfolio/base.html' %}
+{% load static %}
+
+{% block title %}Projects | Darsh Jilka{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-[#050505] pt-32 pb-20 relative">
+
+    <!-- Hero / Header for Projects -->
+    <div class="text-center mb-16 px-6 fade-in-up">
+        <h1 class="text-5xl md:text-7xl font-bold mb-6 text-white">My <span
+                class="text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-400">Work</span></h1>
+        <p class="text-gray-400 text-xl max-w-2xl mx-auto">Selected projects showcasing my journey in Full Stack
+            Development and AI.</p>
+    </div>
+
+    <!-- Projects Grid/List -->
+    <section class="max-w-7xl mx-auto px-6 relative z-10">
+        <div class="flex flex-col gap-32 pb-40">
+            {% for project in projects %}
+            <!-- Project Card {{ forloop.counter }} -->
+            <div
+                class="project-card sticky top-32 w-full min-h-[60vh] md:min-h-[70vh] rounded-[2.5rem] overflow-hidden border border-white/10 shadow-2xl transition-all duration-500 bg-black/80">
+
+                <div class="flex flex-col md:flex-row h-full">
+                    <!-- Text Content -->
+                    <div class="p-8 md:p-12 flex flex-col justify-center md:w-1/2 order-2 md:order-1 z-10">
+                        <div class="flex items-center gap-4 mb-4">
+                            <span class="text-sm font-mono tracking-widest text-white/50">0{{ forloop.counter }}</span>
+                            <div class="h-[1px] w-12 bg-white/20"></div>
+                        </div>
+                        <a href="{% url 'project_detail' project.pk %}">
+                            <h3
+                                class="text-3xl md:text-5xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-teal-300 via-cyan-400 to-blue-500 leading-tight animate-gradient hover:opacity-80 transition-opacity">
+                                {{ project.title }}
+                            </h3>
+                        </a>
+                        <p class="text-gray-400 mb-8 text-lg leading-relaxed">{{ project.description }}</p>
+
+                        <div class="flex flex-wrap gap-3 mb-8">
+                            {{ project.tag_html|safe }}
+                        </div>
+
+                        <div class="flex gap-4">
+                            {% if project.github_link %}
+                            <a href="{{ project.github_link }}" target="_blank"
+                                class="px-6 py-3 rounded-full bg-white text-black font-bold hover:scale-105 transition-transform flex items-center gap-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path
+                                        d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22">
+                                    </path>
+                                </svg>
+                                Code
+                            </a>
+                            {% endif %}
+
+                            <!-- Detail Button -->
+                            <a href="{% url 'project_detail' project.pk %}"
+                                class="px-6 py-3 rounded-full border border-white/20 hover:bg-white/10 text-white font-bold transition-all flex items-center gap-2">
+                                Details
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Image Content -->
+                    <a href="{% url 'project_detail' project.pk %}"
+                        class="md:w-1/2 order-1 md:order-2 relative overflow-hidden group block pl-0 p-0 m-0">
+                        {% if project.image %}
+                        <img src="{{ project.image.url }}" alt="{{ project.title }}"
+                            class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-60 md:opacity-100 mask-image-b md:mask-image-l">
+                        {% else %}
+                        <div class="w-full h-full flex items-center justify-center bg-white/5">
+                            <span class="text-6xl">🚀</span>
+                        </div>
+                        {% endif %}
+                        <!-- Gradient Overlay for Mobile Readability -->
+                        <div
+                            class="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-transparent md:hidden">
+                        </div>
+                    </a>
+                </div>
+            </div>
+            {% empty %}
+            <p class="text-center text-gray-500 text-xl">Projects coming soon...</p>
+            {% endfor %}
+        </div>
+
+        <div class="text-center mt-12 fade-in">
+            <a href="https://github.com/Darshh16?tab=repositories" target="_blank"
+                class="inline-flex items-center gap-2 text-lg text-gray-400 hover:text-white transition-colors group font-mono">
+                <span>View all repositories on GitHub</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="transform group-hover:translate-x-1 transition-transform">
+                    <path d="M5 12h14"></path>
+                    <path d="m12 5 7 7-7 7"></path>
+                </svg>
+            </a>
+        </div>
+    </section>
+
+</div>
+{% endblock %}

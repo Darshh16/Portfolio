@@ -6,6 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Darsh Jilka Portfolio{% endblock %}</title>
+    <link rel="icon" type="image/svg+xml" href="{% static 'favicon.svg' %}">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -22,9 +23,9 @@
                         sans: ['Outfit', 'sans-serif'],
                     },
                     colors: {
-                        primary: '#6366f1',
-                        secondary: '#a855f7',
-                        dark: '#0f172a',
+                        primary: '#ffffff',
+                        secondary: '#9ca3af',
+                        dark: '#000000',
                     }
                 }
             }
@@ -37,8 +38,47 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <!-- Lenis Smooth Scroll -->
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
 
     <style>
+        /* Custom Cursor */
+        body {
+            cursor: none;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                cursor: auto;
+            }
+
+            .custom-cursor {
+                display: none;
+            }
+        }
+
+        .custom-cursor {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 20px;
+            height: 20px;
+            background-color: white;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            mix-blend-mode: difference;
+            transform: translate(-50%, -50%);
+            transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1), height 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .custom-cursor.grow {
+            width: 80px;
+            height: 80px;
+            background-color: white;
+            /* Difference mode handles inversion */
+        }
+
         body {
             background-color: #050505;
             color: #ffffff;
@@ -63,7 +103,7 @@
         }
 
         .text-gradient {
-            background: linear-gradient(to right, #6366f1, #a855f7, #ec4899);
+            background: linear-gradient(to right, #ffffff, #9ca3af);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
@@ -113,19 +153,62 @@
         }
     </style>
     {% endblock %}
+    <!-- Lenis Smooth Scroll -->
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
+
+    <style>
+        /* Custom Cursor */
+        body {
+            cursor: none;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                cursor: auto;
+            }
+
+            .custom-cursor {
+                display: none;
+            }
+        }
+
+        .custom-cursor {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 12px;
+            height: 12px;
+            background-color: white;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9999;
+            mix-blend-mode: difference;
+            transform: translate(-50%, -50%);
+            transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1), height 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .custom-cursor.grow {
+            width: 50px;
+            height: 50px;
+            background-color: white;
+        }
+    </style>
 </head>
 
-<body>
+<body class="selection:bg-white selection:text-black">
+    <div class="custom-cursor" id="custom-cursor"></div>
     <div id="canvas-container"></div>
 
     <nav class="fixed w-full z-50 top-0 left-0 p-6 transition-all duration-300" id="navbar">
         <div class="max-w-7xl mx-auto flex justify-between items-center">
-            <a href="#" class="text-2xl font-bold tracking-tighter text-gradient">Darsh Jilka</a>
+            <a href="{% url 'home' %}" class="text-2xl font-bold tracking-tighter text-gradient">Darsh Jilka</a>
             <div class="hidden md:flex space-x-8 text-sm font-semibold tracking-wide">
-                <a href="#home" class="hover:text-primary transition-colors">HOME</a>
-                <a href="#skills" class="hover:text-primary transition-colors">SKILLS</a>
-                <a href="#projects" class="hover:text-primary transition-colors">PROJECTS</a>
-                <a href="#gallery" class="hover:text-primary transition-colors">GALLERY</a>
+                <a href="{% url 'home' %}" class="hover:text-primary transition-colors">HOME</a>
+                <a href="{% url 'about' %}" class="hover:text-primary transition-colors">ABOUT</a>
+                <a href="{% url 'home' %}#skills" class="hover:text-primary transition-colors">SKILLS</a>
+                <a href="{% url 'projects' %}" class="hover:text-primary transition-colors">PROJECTS</a>
+                <a href="{% url 'gallery' %}" class="hover:text-primary transition-colors">GALLERY</a>
+                <a href="{% url 'home' %}#contact" class="hover:text-primary transition-colors">CONTACT</a>
             </div>
         </div>
     </nav>
