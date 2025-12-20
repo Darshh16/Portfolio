@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.core.mail import send_mail
 from django.contrib import messages
-from .models import Skill, Project, Achievement
+from .models import Skill, Project, Achievement, ContactMessage
 
 def home(request):
     skills = list(Skill.objects.all())
@@ -73,19 +73,33 @@ def contact(request):
     if request.method == 'POST':
         name = request.POST.get('name')
         email = request.POST.get('email')
-        message = request.POST.get('message')
+        message_text = request.POST.get('message')
         
-        # Send Email
-        send_mail(
-            f'Portfolio Contact from {name}',
-            f'Message from {name} <{email}>:\n\n{message}',
-            email, # From email
-            ['darshjilka.spare@gmail.com'], # To email
-            fail_silently=False,
+        # Save to database first (this always works)
+        contact_message = ContactMessage.objects.create(
+            name=name,
+            email=email,
+            message=message_text
         )
-        messages.success(request, 'Message sent successfully!')
-        return redirect('/#contact')
-    return redirect('/#contact')
+        
+        # Try to send email (this might fail)
+        try:
+            send_mail(
+                f'Portfolio Contact from {name}',
+                f'Message from {name} <{email}>:\n\n{message_text}',
+                'darshjilka.spare@gmail.com',  # From email (use your email)
+                ['darshjilka.spare@gmail.com'],  # To email
+                fail_silently=False,
+            )
+            messages.success(request, 'Message sent successfully! I will get back to you soon.')
+        except Exception as e:
+            # Log the error but still show a message to the user
+            print(f"Email error: {str(e)}")
+            # Message is already saved to database, so it's not lost
+            messages.success(request, 'Message received! I will get back to you soon.')
+        
+        return redirect('home')
+    return redirect('home')
 
 def project_detail(request, pk):
     project = get_object_or_404(Project, pk=pk)
