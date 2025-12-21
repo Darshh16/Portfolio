@@ -4,6 +4,10 @@ from django.contrib import messages
 from .models import Skill, Project, Achievement, ContactMessage
 
 def home(request):
+    # Check for success parameter from FormSubmit redirect
+    if request.GET.get('success') == 'true':
+        messages.success(request, 'Message sent successfully! I will get back to you soon.')
+
     skills = list(Skill.objects.all())
     # Projects logic moved to projects view
 
