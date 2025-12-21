@@ -124,12 +124,14 @@ USE_TZ = True
 # Email Settings
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
+EMAIL_PORT = 465  # Use SSL port (often bypasses blocks)
+EMAIL_USE_TLS = False
+EMAIL_USE_SSL = True  # Use SSL instead of TLS
 EMAIL_HOST_USER = 'darshjilka.spare@gmail.com'
 # IMPORTANT: You must generate an App Password from your Google Account > Security > App Passwords
 # Do NOT use your real login password.
 EMAIL_HOST_PASSWORD = 'yzoc wskp hcdj qdqc' 
+EMAIL_TIMEOUT = 10  # Increased slightly for SSL handshake
 
 
 MEDIA_URL = '/media/'
