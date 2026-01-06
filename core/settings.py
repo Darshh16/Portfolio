@@ -26,7 +26,11 @@ SECRET_KEY = 'django-insecure-2a(3vvw6(f=@qgp#i1wesdugc0%#6-_j^sx*e0zh-zu!cwcq8i
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = [
+    "darshjilka.me",
+    "www.darshjilka.me",
+    "portfolio-xyz.onrender.com",
+]
 
 
 # Application definition
@@ -150,6 +154,7 @@ STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
 
-CSRF_TRUSTED_ORIGINS = [ 
-    "https://portfolio-2hxy.onrender.com"
+CSRF_TRUSTED_ORIGINS = [
+    "https://darshjilka.me",
+    "https://www.darshjilka.me",
 ]
