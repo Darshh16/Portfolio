@@ -30,6 +30,7 @@ ALLOWED_HOSTS = [
     "darshjilka.me",
     "www.darshjilka.me",
     "portfolio-xyz.onrender.com",
+    "portfolio-piv2.onrender.com",
 ]
 
 
