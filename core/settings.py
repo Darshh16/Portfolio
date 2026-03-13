@@ -10,18 +10,23 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
+import os
+from dotenv import load_dotenv
 from django.conf.global_settings import CSRF_TRUSTED_ORIGINS
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# Load environment variables from .env file
+load_dotenv(BASE_DIR / '.env')
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-2a(3vvw6(f=@qgp#i1wesdugc0%#6-_j^sx*e0zh-zu!cwcq8i'
+SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-fallback-key-for-dev')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -132,10 +137,10 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 465  # Use SSL port (often bypasses blocks)
 EMAIL_USE_TLS = False
 EMAIL_USE_SSL = True  # Use SSL instead of TLS
-EMAIL_HOST_USER = 'darshjilka.spare@gmail.com'
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', 'darshjilka.spare@gmail.com')
 # IMPORTANT: You must generate an App Password from your Google Account > Security > App Passwords
 # Do NOT use your real login password.
-EMAIL_HOST_PASSWORD = 'yzoc wskp hcdj qdqc' 
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', '')
 EMAIL_TIMEOUT = 10  # Increased slightly for SSL handshake
 
 
