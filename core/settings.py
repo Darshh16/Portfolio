@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 import os
+import pandas as pd
 from dotenv import load_dotenv
 from django.conf.global_settings import CSRF_TRUSTED_ORIGINS
 from pathlib import Path
@@ -36,6 +37,7 @@ ALLOWED_HOSTS = [
     "www.darshjilka.me",
     "portfolio-xyz.onrender.com",
     "portfolio-piv2.onrender.com",
+    "127.0.0.1"
 ]
 
 

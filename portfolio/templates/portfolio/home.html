@@ -1,6 +1,15 @@
 {% extends 'portfolio/base.html' %}
 {% load static %}
 
+{% block extra_head %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static 'css/mascot.css' %}">
+{% endblock %}
+
+{% block extra_scripts %}
+<script src="{% static 'js/chatbot.js' %}" defer></script>
+{% endblock %}
+
 {% block content %}
 <!-- Hero Section -->
 <section id="home" class="min-h-screen flex items-center justify-center relative z-10 overflow-hidden pt-20">
@@ -18,6 +27,8 @@
             class="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-blue-900/20 via-transparent to-transparent">
         </div>
     </div>
+
+
 
     <div
         class="max-w-4xl mx-auto px-6 relative z-20 text-center flex flex-col items-center justify-center min-h-[80vh]">
@@ -392,5 +403,59 @@
         </div>
     </div>
 </section>
+
+<!-- Chatbot Floating Action Button -->
+<button onclick="window.openChatbot()" class="fixed bottom-6 right-6 z-50 p-4 rounded-full bg-blue-600 hover:bg-blue-500 text-white shadow-[0_0_20px_rgba(59,130,246,0.5)] hover:scale-110 transition-all duration-300 flex items-center justify-center group" title="Chat with me!">
+    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="group-hover:animate-pulse">
+        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+    </svg>
+</button>
+
+<!-- Chatbot Overlay and Modal -->
+<div id="chatbot-overlay" class="chatbot-overlay">
+    <div class="chatbot-modal">
+        <!-- Header -->
+        <div class="chatbot-header">
+            <div class="chatbot-profile">
+                <div class="chatbot-avatar">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M12 2a10 10 0 0 0-10 10 10 10 0 0 0 10 10 10 10 0 0 0 10-10A10 10 0 0 0 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-3-9.5c.55 0 1-.45 1-1s-.45-1-1-1-1 .45-1 1 .45 1 1 1zm6 0c.55 0 1-.45 1-1s-.45-1-1-1-1 .45-1 1 .45 1 1 1zm-3 5.5c2.33 0 4.31-1.46 5.11-3.5H6.89c.8 2.04 2.78 3.5 5.11 3.5z" fill="#ffffff"/>
+                    </svg>
+                </div>
+                <div class="chatbot-title-container">
+                    <span class="chatbot-title">AI Assistant</span>
+                    <span class="chatbot-subtitle"><span class="chatbot-status-dot"></span>Online</span>
+                </div>
+            </div>
+            <button id="chatbot-close-btn" class="chatbot-close-btn" aria-label="Close Chat">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+            </button>
+        </div>
+        <!-- Messages -->
+        <div id="chatbot-messages" class="chatbot-messages">
+            <!-- Populated dynamically -->
+        </div>
+        <!-- Suggestions -->
+        <div class="chatbot-suggestions-container">
+            <div class="chatbot-suggestions-title">Ask me about Darsh:</div>
+            <div id="chatbot-suggestions" class="chatbot-suggestions">
+                <!-- Populated dynamically -->
+            </div>
+        </div>
+        <!-- Input Area -->
+        <div class="chatbot-input-container">
+            <input type="text" id="chatbot-input" placeholder="Type a question..." autocomplete="off">
+            <button id="chatbot-send-btn" aria-label="Send Message">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="22" y1="2" x2="11" y2="13"></line>
+                    <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                </svg>
+            </button>
+        </div>
+    </div>
+</div>
 
 {% endblock %}
